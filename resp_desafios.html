@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafios - Estruturas de Controle | Java</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            color: #f5576c;
+            margin-bottom: 15px;
+            border-left: 5px solid #f5576c;
+            padding-left: 15px;
+            font-size: 1.3rem;
+        }
+
+        .card h3 {
+            color: #764ba2;
+            margin: 18px 0 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .step {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 10px;
+            border-left: 4px solid #f5576c;
+            font-size: 0.95rem;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #f5576c;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .code-block {
+            position: relative;
+            background: #1e1e2e;
+            color: #c9d1d9;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: #f5576c;
+            color: white;
+            border: none;
+            padding: 3px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 10px;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #c0392b;
+        }
+
+        .copy-btn.copied {
+            background: #28a745;
+        }
+
+        .highlight {
+            padding: 10px 14px;
+            border-radius: 10px;
+            border-left: 4px solid #17a2b8;
+            margin: 10px 0;
+            font-size: 13px;
+        }
+
+        .tip {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+        }
+
+        .success {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+
+        .info {
+            background: #d1ecf1;
+            border-left-color: #17a2b8;
+        }
+
+        .exemplo-saida {
+            background: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-family: monospace;
+            font-size: 12px;
+            margin: 5px 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 8px;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checklist-item label {
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        .btn-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #f5576c;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255,255,255,0.7);
+            font-size: 11px;
+        }
+
+        .form-box {
+            background: #e7f3ff;
+            border-radius: 14px;
+            padding: 18px;
+            margin: 15px auto;
+            border-left: 4px solid #2196f3;
+            max-width: 800px;
+            text-align: left;
+        }
+
+        .form-box a {
+            color: #2196f3;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .form-box a:hover {
+            text-decoration: underline;
+        }
+
+        .icon-text {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 40px;
+        }
+
+        .tab-link {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            padding: 8px 18px;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .tab-link:hover {
+            background: rgba(255,255,255,0.4);
+        }
+
+        .tab-link.active {
+            background: #f5576c;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .card { padding: 18px; }
+            .header h1 { font-size: 1.3rem; }
+            .tab-link { padding: 6px 12px; font-size: 0.7rem; }
+            .header { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- HEADER -->
+    <div class="header">
+        <h1>🏆 Sugestões de Implementação</h1>
+        <p>Desafios - Estruturas de Controle | Java</p>
+        <div class="badge-group">
+            <span class="badge">📝 5 desafios</span>
+            <span class="badge">📋 Códigos prontos</span>
+            <span class="badge">📋 Copiar e colar</span>
+        </div>
+    </div>
+
+    <!-- NAVEGAÇÃO -->
+    <div class="nav-tabs">
+        <button class="tab-link active" data-tab="d1">🧩 DESAFIO 1</button>
+        <button class="tab-link" data-tab="d2">🧩 DESAFIO 2</button>
+        <button class="tab-link" data-tab="d3">🧩 DESAFIO 3</button>
+        <button class="tab-link" data-tab="d4">🧩 DESAFIO 4</button>
+        <button class="tab-link" data-tab="d5">🧩 DESAFIO 5</button>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- DESAFIO 1: PAR OU ÍMPAR -->
+    <!-- ============================================================ -->
+    <div id="d1" class="tab-content active">
+        <div class="card">
+            <h2>🧩 Desafio 1: Par ou Ímpar</h2>
+
+            <div class="step">
+                <span class="step-number">📌</span> <strong>Classe:</strong> <code>DesafioParImpar.java</code>
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Peça um <strong>número inteiro</strong> ao usuário
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Use <strong>if/else</strong> para verificar se é <strong>par ou ímpar</strong>
+            </div>
+
+            <div class="highlight tip">
+                💡 <strong>Dica:</strong> Um número é par quando <code>numero % 2 == 0</code>
+            </div>
+
+            <div class="exemplo-saida">
+📥 Entrada: 7<br>
+📤 Saída: O número 7 é ímpar
+            </div>
+
+            <h3 style="margin-top: 20px;">📝 Código Sugerido:</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this, 'code-d1')">📋 Copiar</button>
+                <pre id="code-d1"><code>package temacontrole;
+
+import java.util.Scanner;
+
+public class DesafioParImpar {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite um número inteiro: ");
+        int numero = scanner.nextInt();
+
+        if (numero % 2 == 0) {
+            System.out.println("O número " + numero + " é par");
+        } else {
+            System.out.println("O número " + numero + " é ímpar");
+        }
+
+        scanner.close();
+    }
+}</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- DESAFIO 2: MAIOR DE DOIS NÚMEROS -->
+    <!-- ============================================================ -->
+    <div id="d2" class="tab-content">
+        <div class="card">
+            <h2>🧩 Desafio 2: Maior de Dois Números</h2>
+
+            <div class="step">
+                <span class="step-number">📌</span> <strong>Classe:</strong> <code>DesafioMaior.java</code>
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Peça <strong>dois números</strong> ao usuário
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Use <strong>if/else</strong> para exibir o <strong>maior número</strong>
+            </div>
+
+            <div class="exemplo-saida">
+📥 Entrada: 10 e 5<br>
+📤 Saída: O maior número é 10
+            </div>
+
+            <h3 style="margin-top: 20px;">📝 Código Sugerido:</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this, 'code-d2')">📋 Copiar</button>
+                <pre id="code-d2"><code>package temacontrole;
+
+import java.util.Scanner;
+
+public class DesafioMaior {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite o primeiro número: ");
+        int num1 = scanner.nextInt();
+
+        System.out.print("Digite o segundo número: ");
+        int num2 = scanner.nextInt();
+
+        if (num1 > num2) {
+            System.out.println("O maior número é " + num1);
+        } else if (num2 > num1) {
+            System.out.println("O maior número é " + num2);
+        } else {
+            System.out.println("Os números são iguais!");
+        }
+
+        scanner.close();
+    }
+}</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- DESAFIO 3: CONTAGEM REGRESSIVA -->
+    <!-- ============================================================ -->
+    <div id="d3" class="tab-content">
+        <div class="card">
+            <h2>🧩 Desafio 3: Contagem Regressiva</h2>
+
+            <div class="step">
+                <span class="step-number">📌</span> <strong>Classe:</strong> <code>DesafioContagem.java</code>
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Peça um <strong>número inteiro</strong> ao usuário
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Use <strong>for</strong> para contar de <strong>1 até o número</strong> digitado
+            </div>
+
+            <div class="exemplo-saida">
+📥 Entrada: 5<br>
+📤 Saída: 1, 2, 3, 4, 5
+            </div>
+
+            <h3 style="margin-top: 20px;">📝 Código Sugerido:</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this, 'code-d3')">📋 Copiar</button>
+                <pre id="code-d3"><code>package temacontrole;
+
+import java.util.Scanner;
+
+public class DesafioContagem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite um número: ");
+        int limite = scanner.nextInt();
+
+        System.out.print("Contagem: ");
+        for (int i = 1; i <= limite; i++) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+
+        scanner.close();
+    }
+}</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- DESAFIO 4: SOMA DE NÚMEROS -->
+    <!-- ============================================================ -->
+    <div id="d4" class="tab-content">
+        <div class="card">
+            <h2>🧩 Desafio 4: Soma de Números</h2>
+
+            <div class="step">
+                <span class="step-number">📌</span> <strong>Classe:</strong> <code>DesafioSoma.java</code>
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Peça <strong>5 números</strong> ao usuário (use <strong>for</strong>)
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Calcule e exiba a <strong>soma total</strong>
+            </div>
+
+            <div class="exemplo-saida">
+📥 Entrada: 10, 20, 30, 40, 50<br>
+📤 Saída: Soma = 150
+            </div>
+
+            <h3 style="margin-top: 20px;">📝 Código Sugerido:</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this, 'code-d4')">📋 Copiar</button>
+                <pre id="code-d4"><code>package temacontrole;
+
+import java.util.Scanner;
+
+public class DesafioSoma {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int soma = 0;
+
+        for (int i = 1; i <= 5; i++) {
+            System.out.print("Digite o " + i + "º número: ");
+            soma += scanner.nextInt();
+        }
+
+        System.out.println("Soma total = " + soma);
+
+        scanner.close();
+    }
+}</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- DESAFIO 5: VALIDAÇÃO DE SENHA -->
+    <!-- ============================================================ -->
+    <div id="d5" class="tab-content">
+        <div class="card">
+            <h2>🧩 Desafio 5: Validação de Senha</h2>
+
+            <div class="step">
+                <span class="step-number">📌</span> <strong>Classe:</strong> <code>DesafioSenha.java</code>
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Use <strong>do-while</strong> para pedir a senha até acertar
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Senha correta: <strong>"123"</strong>
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Exiba <strong>"Acesso permitido!"</strong> quando acertar
+            </div>
+
+            <div class="exemplo-saida">
+📥 Entrada: 111, 222, 123<br>
+📤 Saída:<br>
+Senha incorreta!<br>
+Senha incorreta!<br>
+Acesso permitido!
+            </div>
+
+            <h3 style="margin-top: 20px;">📝 Código Sugerido:</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this, 'code-d5')">📋 Copiar</button>
+                <pre id="code-d5"><code>package temacontrole;
+
+import java.util.Scanner;
+
+public class DesafioSenha {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String senhaCorreta = "123";
+        String senhaDigitada;
+
+        do {
+            System.out.print("Digite a senha: ");
+            senhaDigitada = scanner.nextLine();
+
+            if (!senhaDigitada.equals(senhaCorreta)) {
+                System.out.println("Senha incorreta! Tente novamente.");
+            }
+
+        } while (!senhaDigitada.equals(senhaCorreta));
+
+        System.out.println("Acesso permitido!");
+
+        scanner.close();
+    }
+}</code></pre>
+            </div>
+
+            <div class="highlight info">
+                🎯 <strong>Explicação:</strong> O <code>do-while</code> executa o bloco <strong>pelo menos uma vez</strong>, depois verifica a condição. Se a senha estiver errada, repete.
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- CHECKLIST E INSTRUÇÕES -->
+    <!-- ============================================================ -->
+    <div class="card">
+        <h2>📋 Instruções de Entrega</h2>
+
+        <div class="step">
+            <span class="step-number">📁</span> Crie cada classe no pacote <strong>temacontrole</strong> do projeto <strong>Tema04e05</strong>
+        </div>
+        <div class="step">
+            <span class="step-number">📁</span> Copie e cole o código sugerido para cada desafio
+        </div>
+        <div class="step">
+            <span class="step-number">▶️</span> Execute cada classe com <strong>Run File</strong> (Shift + F6)
+        </div>
+
+        <h3 style="margin-top: 20px;">✅ Checklist de Entrega</h3>
+
+        <div class="checklist-item">
+            <input type="checkbox" id="check1">
+            <label for="check1"><code>DesafioParImpar.java</code> - Par ou Ímpar</label>
+        </div>
+
+        <div class="checklist-item">
+            <input type="checkbox" id="check2">
+            <label for="check2"><code>DesafioMaior.java</code> - Maior de Dois Números</label>
+        </div>
+
+        <div class="checklist-item">
+            <input type="checkbox" id="check3">
+            <label for="check3"><code>DesafioContagem.java</code> - Contagem Regressiva</label>
+        </div>
+
+        <div class="checklist-item">
+            <input type="checkbox" id="check4">
+            <label for="check4"><code>DesafioSoma.java</code> - Soma de Números</label>
+        </div>
+
+        <div class="checklist-item">
+            <input type="checkbox" id="check5">
+            <label for="check5"><code>DesafioSenha.java</code> - Validação de Senha</label>
+        </div>
+
+        <div class="checklist-item">
+            <input type="checkbox" id="check6">
+            <label for="check6">📸 Tirei print do <strong>código</strong> de cada desafio</label>
+        </div>
+
+        <div class="checklist-item">
+            <input type="checkbox" id="check7">
+            <label for="check7">📸 Tirei print do <strong>resultado</strong> (saída no console) de cada desafio</label>
+        </div>
+
+        <div class="checklist-item">
+            <input type="checkbox" id="check8">
+            <label for="check8">📤 Salvei os arquivos no repositório <strong>java4e5</strong></label>
+        </div>
+
+        <div class="highlight success" style="margin-top: 15px;">
+            📤 <strong>Entregar:</strong> Prints do código e resultado de cada desafio + link do repositório <strong>java4e5</strong>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- FOOTER COM FORMULÁRIO -->
+    <!-- ============================================================ -->
+    <div class="footer">
+        <div class="form-box">
+            <div class="icon-text">📋</div>
+            <strong>Formulário para entrega das atividades (desafios 1 a 5) e relatório da aula:</strong><br>
+            <a href="https://forms.gle/zbUB57A4FteUDsKSA" target="_blank">https://forms.gle/zbUB57A4FteUDsKSA</a>
+        </div>
+
+        <p>📚 TEMA 04 e 05 - Estruturas de Controle | Java</p>
+        <p>🎯 Condicionais | Repetições | Desafios Práticos</p>
+    </div>
+</div>
+
+<button class="btn-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️ Topo</button>
+
+<script>
+    // Sistema de abas
+    const tabLinks = document.querySelectorAll('.tab-link');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            const tabId = link.getAttribute('data-tab');
+            tabLinks.forEach(l => l.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+            link.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        });
+    });
+
+    // Função de copiar código
+    function copyCode(btn, elementId) {
+        const codeElement = document.getElementById(elementId);
+        const textToCopy = codeElement.innerText;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '✅ Copiado!';
+            btn.classList.add('copied');
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.remove('copied');
+            }, 2000);
+        }).catch(() => {
+            btn.innerHTML = '❌ Erro';
+            setTimeout(() => btn.innerHTML = '📋 Copiar', 2000);
+        });
+    }
+</script>
+</body>
+</html>

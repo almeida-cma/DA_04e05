@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEMA 04 e 05 - Estruturas de Controle | Java</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 24px;
+            padding: 35px;
+            margin-bottom: 25px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 40px;
+        }
+
+        .tab-link {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            padding: 8px 18px;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .tab-link:hover {
+            background: rgba(255,255,255,0.4);
+        }
+
+        .tab-link.active {
+            background: #f5576c;
+        }
+
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            color: #f5576c;
+            margin-bottom: 15px;
+            border-left: 5px solid #f5576c;
+            padding-left: 15px;
+            font-size: 1.3rem;
+        }
+
+        .card h3 {
+            color: #764ba2;
+            margin: 18px 0 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .card h4 {
+            color: #2c5364;
+            margin: 12px 0 8px 0;
+            font-size: 1rem;
+        }
+
+        .step {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 10px;
+            border-left: 4px solid #f5576c;
+            font-size: 0.95rem;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #f5576c;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .code-block {
+            position: relative;
+            background: #1e1e2e;
+            color: #c9d1d9;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: #f5576c;
+            color: white;
+            border: none;
+            padding: 3px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 10px;
+        }
+
+        .copy-btn:hover {
+            background: #c0392b;
+        }
+
+        .copy-btn.copied {
+            background: #28a745;
+        }
+
+        .highlight {
+            padding: 10px 14px;
+            border-radius: 10px;
+            border-left: 4px solid #17a2b8;
+            margin: 10px 0;
+            font-size: 13px;
+        }
+
+        .info {
+            background: #d1ecf1;
+            border-left-color: #17a2b8;
+        }
+
+        .tip {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+        }
+
+        .success {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+
+        .warning {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 13px;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 8px 10px;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background: #f5576c;
+            color: white;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .tree {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        .btn-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #f5576c;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(22, 18, 31, 0.7);
+            font-size: 11px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-box {
+            background: #e7f3ff;
+            border-radius: 14px;
+            padding: 18px;
+            margin: 15px auto;
+            border-left: 4px solid #2196f3;
+            max-width: 800px;
+            text-align: left;
+        }
+
+        .form-box a {
+            color: #2196f3;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .form-box a:hover {
+            text-decoration: underline;
+        }
+
+        .icon-text {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .exemplo-saida {
+            background: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-family: monospace;
+            font-size: 12px;
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            .card { padding: 18px; }
+            .header h1 { font-size: 1.3rem; }
+            .tab-link { padding: 6px 12px; font-size: 0.7rem; }
+            .header { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- HEADER -->
+    <div class="header">
+        <h1>🎯 TEMA 04 e 05 - Estruturas de Controle</h1>
+        <p>Condicionais (if/else/switch) | Repetição (for/while/do-while)</p>
+        <div class="badge-group">
+            <span class="badge">🔀 if/else</span>
+            <span class="badge">🔄 switch</span>
+            <span class="badge">🔁 for</span>
+            <span class="badge">♻️ while</span>
+            <span class="badge">🔂 do-while</span>
+        </div>
+    </div>
+
+    <!-- NAVEGAÇÃO -->
+    <div class="nav-tabs">
+        <button class="tab-link active" data-tab="config">📋 CONFIGURAÇÃO</button>
+        <button class="tab-link" data-tab="fundamentos">📖 FUNDAMENTOS</button>
+        <button class="tab-link" data-tab="condicionais">🔀 CONDICIONAIS</button>
+        <button class="tab-link" data-tab="repeticoes">🔄 REPETIÇÕES</button>
+        <button class="tab-link" data-tab="exemplos">💻 EXEMPLOS</button>
+        <button class="tab-link" data-tab="desafios">🏆 DESAFIOS</button>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- TAB: CONFIGURAÇÃO -->
+    <!-- ============================================================ -->
+    <div id="config" class="tab-content active">
+        <div class="card">
+            <h2>🚀 Configuração do Projeto no NetBeans</h2>
+
+            <div class="step">
+                <span class="step-number">1</span> <strong>File → New Project</strong>
+            </div>
+            <div class="step">
+                <span class="step-number">2</span> Escolha: <strong>Java with Ant</strong> → <strong>Java Application</strong>
+            </div>
+            <div class="step">
+                <span class="step-number">3</span> <strong>Project Name:</strong> <code>Tema04e05</code>
+            </div>
+            <div class="step">
+                <span class="step-number">4</span> Marque: <strong>✓ Create Main Class</strong>
+            </div>
+            <div class="step">
+                <span class="step-number">5</span> <strong>Main Class:</strong> <code>temacontrole.Main</code>
+            </div>
+            <div class="step">
+                <span class="step-number">6</span> Clique em <strong>Finish</strong>
+            </div>
+
+            <div class="tree">
+                📁 Tema04e05<br>
+                &nbsp;&nbsp;└── 📁 Source Packages<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── 📁 temacontrole<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📄 Main.java
+            </div>
+
+            <div class="highlight tip">
+                💡 <strong>DICA:</strong> A Main.java pode ficar vazia. Vamos criar classes SEPARADAS para cada exemplo e desafio!
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📁 Como criar cada exemplo (classe separada)</h2>
+            <div class="step">
+                <span class="step-number">1</span> Botão direito na pasta <strong>temacontrole</strong>
+            </div>
+            <div class="step">
+                <span class="step-number">2</span> <strong>New → Java Class</strong>
+            </div>
+            <div class="step">
+                <span class="step-number">3</span> Digite o nome da classe (ex: <code>ExemploIf</code>)
+            </div>
+            <div class="step">
+                <span class="step-number">4</span> Cole o código do exemplo
+            </div>
+            <div class="step">
+                <span class="step-number">5</span> Execute: botão direito → <strong>Run File</strong> (ou Shift + F6)
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- TAB: FUNDAMENTOS -->
+    <!-- ============================================================ -->
+    <div id="fundamentos" class="tab-content">
+        <div class="card">
+            <h2>📖 O que são Estruturas de Controle?</h2>
+            <p>Estruturas de controle são comandos que permitem que um programa <strong>tome decisões</strong> e <strong>repita ações</strong>.</p>
+
+            <div class="highlight info">
+                🎯 <strong>DOIS TIPOS PRINCIPAIS:</strong>
+                <ul style="margin-left: 20px; margin-top: 8px;">
+                    <li><strong>🔀 Condicionais:</strong> <code>if</code>, <code>else</code>, <code>else if</code>, <code>switch</code> → tomam decisões</li>
+                    <li><strong>🔄 Repetição:</strong> <code>for</code>, <code>while</code>, <code>do-while</code> → repetem ações</li>
+                </ul>
+            </div>
+
+            <div class="highlight tip">
+                💡 <strong>ANALOGIA:</strong>
+                <ul style="margin-left: 20px; margin-top: 8px;">
+                    <li><strong>Condicional:</strong> "Se estiver chovendo, leve guarda-chuva"</li>
+                    <li><strong>Repetição:</strong> "Enquanto houver alunos, chame um por um"</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- TAB: CONDICIONAIS -->
+    <!-- ============================================================ -->
+    <div id="condicionais" class="tab-content">
+        <div class="card">
+            <h2>🔀 Estruturas Condicionais</h2>
+
+            <h3>1. if (se)</h3>
+            <p>Executa um bloco <strong>apenas se</strong> a condição for verdadeira.</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this, 'code-if')">📋 Copiar</button>
+                <pre id="code-if"><code>package temacontrole;
+
+public class ExemploIf {
+    public static void main(String[] args) {
+        int idade = 18;
+
+        if (idade >= 18) {
+            System.out.println("Maior de idade");
+        }
+    }
+}</code></pre>
+            </div>
+
+            <h3>2. if / else (se / senão)</h3>
+            <p>Executa um bloco <strong>se for verdadeiro</strong>, e outro <strong>se for falso</strong>.</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this, 'code-else')">📋 Copiar</button>
+                <pre id="code-else"><code>package temacontrole;
+
+public class ExemploElse {
+    public static void main(String[] args) {
+        int idade = 16;
+
+        if (idade >= 18) {
+            System.out.println("Maior de idade");
+        } else {
+            System.out.println("Menor de idade");
+        }
+    }
+}</code></pre>
+            </div>
+
+            <h3>3. else if (senão se)</h3>
+            <p>Permite <strong>múltiplas condições</strong> em sequência.</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this, 'code-elseif')">📋 Copiar</button>
+                <pre id="code-elseif"><code>package temacontrole;
+
+public class ExemploElseIf {
+    public static void main(String[] args) {
+        int nota = 85;
+
+        if (nota >= 70) {
+            System.out.println("Aprovado");
+        } else if (nota >= 50) {
+            System.out.println("Recuperação");
+        } else {
+            System.out.println("Reprovado");
+        }
+    }
+}</code></pre>
+            </div>
+
+            <h3>4. switch (escolha)</h3>
+            <p>Útil quando você tem <strong>muitas opções</strong> para um mesmo valor.</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this, 'code-switch')">📋 Copiar</button>
+                <pre id="code-switch"><code>package temacontrole;
+
+public class ExemploSwitch {
+    public static void main(String[] args) {
+        int dia = 3;
+
+        switch (dia) {
+            case 1: System.out.println("Domingo"); break;
+            case 2: System.out.println("Segunda"); break;
+            case 3: System.out.println("Terça"); break;
+            default: System.out.println("Inválido");
+        }
+    }
+}</code></pre>
+            </div>
+
+            <div class="highlight warning">
+                ⚠️ <strong>Não esqueça:</strong> Use <code>break</code> no final de cada <code>case</code>!
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- TAB: REPETIÇÕES -->
+    <!-- ============================================================ -->
+    <div id="repeticoes" class="tab-content">
+        <div class="card">
+            <h2>🔄 Estruturas de Repetição</h2>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>Estrutura</th><th>Quando usar</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>for</strong></td><td>Quando você <strong>sabe</strong> quantas vezes vai repetir</td></tr>
+                    <tr><td><strong>while</strong></td><td>Quando você <strong>não sabe</strong> quantas vezes vai repetir</td></tr>
+                    <tr><td><strong>do-while</strong></td><td>Quando quer executar <strong>pelo menos uma vez</strong></td></tr>
+                </tbody>
+            </table>
+
+            <h3>1. for (laço contado)</h3>
+            <p>Repete um número <strong>exato</strong> de vezes.</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this, 'code-for')">📋 Copiar</button>
+                <pre id="code-for"><code>package temacontrole;
+
+public class ExemploFor {
+    public static void main(String[] args) {
+        // Conta de 1 até 5
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Número: " + i);
+        }
+    }
+}</code></pre>
+            </div>
+
+            <h3>2. while (laço condicional)</h3>
+            <p>Repete <strong>enquanto</strong> a condição for verdadeira.</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this, 'code-while')">📋 Copiar</button>
+                <pre id="code-while"><code>package temacontrole;
+
+public class ExemploWhile {
+    public static void main(String[] args) {
+        int contador = 0;
+
+        while (contador < 5) {
+            System.out.println("Contador: " + contador);
+            contador++;
+        }
+    }
+}</code></pre>
+            </div>
+
+            <h3>3. do-while (laço condicional)</h3>
+            <p>Executa <strong>pelo menos uma vez</strong> antes de verificar a condição.</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this, 'code-dowhile')">📋 Copiar</button>
+                <pre id="code-dowhile"><code>package temacontrole;
+
+public class ExemploDoWhile {
+    public static void main(String[] args) {
+        int numero = 0;
+
+        do {
+            System.out.println("Número: " + numero);
+            numero++;
+        } while (numero < 5);
+    }
+}</code></pre>
+            </div>
+
+            <div class="highlight warning">
+                ⚠️ <strong>CUIDADO:</strong> Sempre tenha uma condição de parada para evitar loop infinito!
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- TAB: EXEMPLOS COM SCANNER -->
+    <!-- ============================================================ -->
+    <div id="exemplos" class="tab-content">
+        <div class="card">
+            <h2>💻 Exemplos com Scanner</h2>
+
+            <div class="highlight info">
+                📖 <strong>ENTENDENDO O SCANNER:</strong>
+                <ul style="margin-left: 20px; margin-top: 8px;">
+                    <li><code>scanner.nextInt()</code> → Lê um <strong>número inteiro</strong> (ex: 10, -5, 0)</li>
+                    <li><code>scanner.nextDouble()</code> → Lê um <strong>número decimal</strong> (ex: 7.5, 3.14)</li>
+                    <li><code>scanner.nextLine()</code> → Lê uma <strong>linha de texto</strong> (ex: nome completo)</li>
+                    <li><code>scanner.next()</code> → Lê uma <strong>palavra</strong> (ex: "João")</li>
+                </ul>
+            </div>
+
+            <div class="highlight warning">
+                ⚠️ <strong>ATENÇÃO:</strong> Depois de usar <code>nextInt()</code> ou <code>nextDouble()</code>, use <code>scanner.nextLine()</code> para consumir a quebra de linha!
+            </div>
+
+            <!-- Exemplo 1 -->
+            <h3>📌 Exemplo 1: if/else com nextInt()</h3>
+            <p>Lê um número e verifica se é positivo ou negativo.</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this, 'code-ex1')">📋 Copiar</button>
+                <pre id="code-ex1"><code>package temacontrole;
+
+import java.util.Scanner;
+
+public class ExemploPositivo {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite um número: ");
+        int numero = scanner.nextInt();
+
+        if (numero > 0) {
+            System.out.println("O número é positivo");
+        } else if (numero < 0) {
+            System.out.println("O número é negativo");
+        } else {
+            System.out.println("O número é zero");
+        }
+
+        scanner.close();
+    }
+}</code></pre>
+            </div>
+
+            <!-- Exemplo 2 -->
+            <h3>📌 Exemplo 2: switch com nextInt()</h3>
+            <p>Lê um número de 1 a 7 e exibe o dia da semana.</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this, 'code-ex2')">📋 Copiar</button>
+                <pre id="code-ex2"><code>package temacontrole;
+
+import java.util.Scanner;
+
+public class ExemploDiaSemana {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Digite um número (1 a 7): ");
+        int dia = scanner.nextInt();
+
+        switch (dia) {
+            case 1: System.out.println("Domingo"); break;
+            case 2: System.out.println("Segunda"); break;
+            case 3: System.out.println("Terça"); break;
+            case 4: System.out.println("Quarta"); break;
+            case 5: System.out.println("Quinta"); break;
+            case 6: System.out.println("Sexta"); break;
+            case 7: System.out.println("Sábado"); break;
+            default: System.out.println("Número inválido");
+        }
+
+        scanner.close();
+    }
+}</code></pre>
+            </div>
+
+            <!-- Exemplo 3 -->
+            <h3>📌 Exemplo 3: for com nextDouble()</h3>
+            <p>Lê 3 notas e calcula a média.</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this, 'code-ex3')">📋 Copiar</button>
+                <pre id="code-ex3"><code>package temacontrole;
+
+import java.util.Scanner;
+
+public class ExemploMedia {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        double soma = 0;
+
+        for (int i = 1; i <= 3; i++) {
+            System.out.print("Nota " + i + ": ");
+            soma += scanner.nextDouble();
+        }
+
+        double media = soma / 3;
+        System.out.println("Média: " + media);
+
+        scanner.close();
+    }
+}</code></pre>
+            </div>
+
+            <!-- Exemplo 4 -->
+            <h3>📌 Exemplo 4: while com nextLine()</h3>
+            <p>Lê nomes até o usuário digitar "sair".</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this, 'code-ex4')">📋 Copiar</button>
+                <pre id="code-ex4"><code>package temacontrole;
+
+import java.util.Scanner;
+
+public class ExemploWhileNome {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String nome;
+
+        System.out.println("Digite nomes (digite 'sair' para parar):");
+
+        while (true) {
+            System.out.print("Nome: ");
+            nome = scanner.nextLine();
+
+            if (nome.equals("sair")) {
+                break;
+            }
+
+            System.out.println("Olá, " + nome + "!");
+        }
+
+        System.out.println("Programa finalizado.");
+        scanner.close();
+    }
+}</code></pre>
+            </div>
+
+            <!-- Exemplo 5 -->
+            <h3>📌 Exemplo 5: do-while com validação</h3>
+            <p>Pede um número entre 1 e 10 até o usuário acertar.</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this, 'code-ex5')">📋 Copiar</button>
+                <pre id="code-ex5"><code>package temacontrole;
+
+import java.util.Scanner;
+
+public class ExemploDoWhile {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int numero;
+
+        do {
+            System.out.print("Digite um número entre 1 e 10: ");
+            numero = scanner.nextInt();
+
+            if (numero < 1 || numero > 10) {
+                System.out.println("Número inválido! Tente novamente.");
+            }
+
+        } while (numero < 1 || numero > 10);
+
+        System.out.println("Número válido: " + numero);
+        scanner.close();
+    }
+}</code></pre>
+            </div>
+
+            <div class="highlight info">
+                🎯 <strong>EXECUTANDO:</strong> Copie cada exemplo para uma classe separada no NetBeans e execute com <strong>Run File</strong>.
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- TAB: DESAFIOS (SIMPLES) -->
+    <!-- ============================================================ -->
+    <div id="desafios" class="tab-content">
+        <div class="card">
+            <h2>🏆 Desafios Práticos</h2>
+
+            <div class="highlight info">
+                🎯 <strong>INSTRUÇÕES:</strong>
+                <ul style="margin-left: 20px; margin-top: 8px;">
+                    <li>Crie uma classe separada para cada desafio no pacote <strong>temacontrole</strong></li>
+                    <li>Use <strong>Scanner</strong> para ler dados do usuário</li>
+                    <li>Aplique as estruturas de controle aprendidas</li>
+                    <li>📸 Tire print do código e do resultado de cada desafio</li>
+                </ul>
+            </div>
+
+            <!-- DESAFIO 1 -->
+            <h3 style="margin-top: 20px;">🧩 Desafio 1: Par ou Ímpar</h3>
+            <div class="step">
+                <span class="step-number">📌</span> <strong>Classe:</strong> <code>DesafioParImpar.java</code>
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Peça um <strong>número inteiro</strong> ao usuário
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Use <strong>if/else</strong> para verificar se é <strong>par ou ímpar</strong>
+            </div>
+
+            <div class="highlight tip">
+                💡 <strong>Dica:</strong> Um número é par quando <code>numero % 2 == 0</code>
+            </div>
+
+            <!-- DESAFIO 2 -->
+            <h3 style="margin-top: 25px;">🧩 Desafio 2: Maior de Dois Números</h3>
+            <div class="step">
+                <span class="step-number">📌</span> <strong>Classe:</strong> <code>DesafioMaior.java</code>
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Peça <strong>dois números</strong> ao usuário
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Use <strong>if/else</strong> para exibir o <strong>maior número</strong>
+            </div>
+
+            <div class="exemplo-saida">
+📥 Entrada: 10 e 5<br>
+📤 Saída: O maior número é 10
+            </div>
+
+            <!-- DESAFIO 3 -->
+            <h3 style="margin-top: 25px;">🧩 Desafio 3: Contagem Regressiva</h3>
+            <div class="step">
+                <span class="step-number">📌</span> <strong>Classe:</strong> <code>DesafioContagem.java</code>
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Peça um <strong>número inteiro</strong> ao usuário
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Use <strong>for</strong> para contar de <strong>1 até o número</strong> digitado
+            </div>
+
+            <div class="exemplo-saida">
+📥 Entrada: 5<br>
+📤 Saída: 1, 2, 3, 4, 5
+            </div>
+
+            <!-- DESAFIO 4 -->
+            <h3 style="margin-top: 25px;">🧩 Desafio 4: Soma de Números</h3>
+            <div class="step">
+                <span class="step-number">📌</span> <strong>Classe:</strong> <code>DesafioSoma.java</code>
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Peça <strong>5 números</strong> ao usuário (use <strong>for</strong>)
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Calcule e exiba a <strong>soma total</strong>
+            </div>
+
+            <div class="exemplo-saida">
+📥 Entrada: 10, 20, 30, 40, 50<br>
+📤 Saída: Soma = 150
+            </div>
+
+            <!-- DESAFIO 5 -->
+            <h3 style="margin-top: 25px;">🧩 Desafio 5: Validação de Senha</h3>
+            <div class="step">
+                <span class="step-number">📌</span> <strong>Classe:</strong> <code>DesafioSenha.java</code>
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Use <strong>do-while</strong> para pedir a senha até acertar
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Senha correta: <strong>"123"</strong>
+            </div>
+            <div class="step">
+                <span class="step-number">📌</span> Exiba <strong>"Acesso permitido!"</strong> quando acertar
+            </div>
+
+            <div class="code-block">
+                <pre><code>// Estrutura sugerida:
+String senhaCorreta = "123";
+String senhaDigitada;
+
+do {
+    System.out.print("Digite a senha: ");
+    senhaDigitada = scanner.nextLine();
+
+    if (!senhaDigitada.equals(senhaCorreta)) {
+        System.out.println("Senha incorreta!");
+    }
+} while (!senhaDigitada.equals(senhaCorreta));
+
+System.out.println("Acesso permitido!");</code></pre>
+            </div>
+        </div>
+
+        <!-- CHECKLIST -->
+        <div class="card">
+            <h2>✅ Checklist de Entrega</h2>
+
+            <div class="step">
+                <span class="step-number">📁</span> Criei as classes:
+                <ul style="margin-left: 30px; margin-top: 8px;">
+                    <li><code>DesafioParImpar.java</code></li>
+                    <li><code>DesafioMaior.java</code></li>
+                    <li><code>DesafioContagem.java</code></li>
+                    <li><code>DesafioSoma.java</code></li>
+                    <li><code>DesafioSenha.java</code></li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">📸</span> Tirei print do <strong>código</strong> de cada desafio
+            </div>
+
+            <div class="step">
+                <span class="step-number">📸</span> Tirei print do <strong>resultado</strong> (saída no console) de cada desafio
+            </div>
+
+            <div class="step">
+                <span class="step-number">📤</span> Salvei os arquivos no repositório <strong>java4e5</strong>
+            </div>
+
+            <div class="highlight success" style="margin-top: 15px;">
+                📤 <strong>Entregar:</strong> Prints do código e resultado de cada desafio + link do repositório <strong>java4e5</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- FOOTER COM FORMULÁRIO -->
+    <!-- ============================================================ -->
+    <div class="footer">
+        <div class="form-box">
+            <div class="icon-text">📋</div>
+            <strong>Formulário para entrega das atividades (desafios 1 a 5) e relatório da aula:</strong><br>
+            <a href="https://forms.gle/zbUB57A4FteUDsKSA" target="_blank">https://forms.gle/zbUB57A4FteUDsKSA</a>
+        </div>
+
+        <p>📚 TEMA 04 e 05 - Estruturas de Controle | Java</p>
+        <p>🎯 Condicionais | Repetições | Desafios Práticos</p>
+    </div>
+</div>
+
+<button class="btn-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️ Topo</button>
+
+<script>
+    // Sistema de abas
+    const tabLinks = document.querySelectorAll('.tab-link');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            const tabId = link.getAttribute('data-tab');
+            tabLinks.forEach(l => l.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+            link.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        });
+    });
+
+    // Função de copiar código
+    function copyCode(btn, elementId) {
+        const codeElement = document.getElementById(elementId);
+        const textToCopy = codeElement.innerText;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '✅ Copiado!';
+            btn.classList.add('copied');
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.remove('copied');
+            }, 2000);
+        }).catch(() => {
+            btn.innerHTML = '❌ Erro';
+            setTimeout(() => btn.innerHTML = '📋 Copiar', 2000);
+        });
+    }
+</script>
+</body>
+</html>
